@@ -180,6 +180,13 @@ class VideoDownloader:
                 if getattr(sys, 'frozen', False):
                     ffmpeg_dir = os.path.join(sys._MEIPASS, 'bin')
 
+                opts = {
+                    'format': format_id,
+                    'outtmpl': f"{dest_folder}/%(title)s.%(ext)s",
+                    'progress_hooks': [progress_hook],
+                    'quiet': True,
+                    'no_warnings': True,
+                    'noplaylist': True,
                     'ffmpeg_location': ffmpeg_dir,
                 }
                 
