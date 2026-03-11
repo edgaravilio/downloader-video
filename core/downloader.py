@@ -1,10 +1,5 @@
-import os
-import sys
-import re
-import threading
-from typing import Callable, Dict, Any, Optional
 import yt_dlp
-
+import tempfile
 import concurrent.futures
 
 class VideoDownloader:
@@ -17,6 +12,25 @@ class VideoDownloader:
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=max_concurrent)
         self.canceled_downloads = set()
         self.paused_downloads = set()
+        self.cookie_file = self._prepare_cookies()
+
+    def _prepare_cookies(self) -> Optional[str]:
+        """
+        Lee cookies desde la variable de entorno YOUTUBE_COOKIES y las guarda en un archivo temporal.
+        """
+        cookies_content = os.environ.get('YOUTUBE_COOKIES')
+        if not cookies_content:
+            return None
+            
+        try:
+            # Creamos un archivo temporal que persista durante la ejecución de la app
+            tmp = tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False)
+            tmp.write(cookies_content)
+            tmp.close()
+            return tmp.name
+        except Exception as e:
+            print(f"Error preparando cookies: {e}")
+            return None
 
     def extract_info(self, url: str, process_playlist: bool = True) -> Dict[str, Any]:
         """
@@ -35,6 +49,9 @@ class VideoDownloader:
             'no_warnings': True,
             'skip_download': True,
         }
+        
+        if self.cookie_file:
+            ydl_opts['cookiefile'] = self.cookie_file
         
         if process_playlist:
             ydl_opts['extract_flat'] = 'in_playlist'
@@ -163,15 +180,11 @@ class VideoDownloader:
                 if getattr(sys, 'frozen', False):
                     ffmpeg_dir = os.path.join(sys._MEIPASS, 'bin')
 
-                opts = {
-                    'format': format_id,
-                    'outtmpl': f"{dest_folder}/%(title)s.%(ext)s",
-                    'progress_hooks': [progress_hook],
-                    'quiet': True,
-                    'no_warnings': True,
-                    'noplaylist': True,
                     'ffmpeg_location': ffmpeg_dir,
                 }
+                
+                if self.cookie_file:
+                    opts['cookiefile'] = self.cookie_file
                 
                 # Caso especial para "Mejor Calidad (MP4)"
                 if format_id == 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best':
