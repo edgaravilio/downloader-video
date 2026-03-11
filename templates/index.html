@@ -612,7 +612,11 @@
                 const data = await res.json();
 
                 if (!res.ok) {
-                    throw new Error(data.error || 'Error de servidor');
+                    let errorMsg = data.error || 'Error de servidor';
+                    if (errorMsg.includes("Sign in to confirm you're not a bot")) {
+                        errorMsg = "⚠️ YouTube ha bloqueado la conexión (Bot Detection). Esto es normal en la nube. Para solucionarlo, debes añadir tus COOKIES en el panel de Render siguiendo nuestra guía.";
+                    }
+                    throw new Error(errorMsg);
                 }
 
                 document.getElementById('general-msg').textContent = "";
