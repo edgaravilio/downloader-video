@@ -87,20 +87,20 @@ def analyze_url():
 
 @app.route('/api/select_folder', methods=['GET'])
 def select_folder():
-    import tkinter as tk
-    from tkinter import filedialog
-    try:
-        root = tk.Tk()
-        root.withdraw()
-        root.attributes('-topmost', True)
-        folder_path = filedialog.askdirectory(title="Seleccionar carpeta de descarga")
-        root.destroy()
-        if folder_path:
+    # Solo intentar si hay un entorno gráfico (evita errores en Docker/Linux)
+    if os.environ.get('DISPLAY') or os.name == 'nt':
+        try:
+            import tkinter as tk
+            from tkinter import filedialog
+            root = tk.Tk()
+            root.withdraw()
+            root.attributes('-topmost', True)
+            folder_path = filedialog.askdirectory(title="Seleccionar carpeta de descarga")
+            root.destroy()
             return jsonify({"folder": folder_path})
-        else:
-            return jsonify({"folder": None})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        except Exception:
+            pass
+    return jsonify({"folder": None, "web_mode": True})
 
 @app.route('/api/download', methods=['POST'])
 def start_download():

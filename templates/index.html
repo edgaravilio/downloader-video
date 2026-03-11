@@ -707,29 +707,31 @@
                 return;
             }
 
-            // Seleccionar carpeta nativa
-            document.getElementById('paste-btn').style.pointerEvents = 'none';
-            document.getElementById('paste-btn').style.opacity = '0.5';
-
+            // Seleccionar carpeta solo si estamos en local
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
             let downloadFolder = null;
-            try {
-                const folderRes = await fetch('/api/select_folder');
-                const folderData = await folderRes.json();
-                if (folderData.folder) {
-                    downloadFolder = folderData.folder;
-                } else if (folderData.error) {
-                    throw new Error(folderData.error);
-                } else {
-                    showMessage("Se canceló la selección de carpeta.", true);
-                    document.getElementById('paste-btn').style.pointerEvents = 'auto';
-                    document.getElementById('paste-btn').style.opacity = '1';
-                    return; // Cancelado
+
+            if (isLocal) {
+                document.getElementById('paste-btn').style.pointerEvents = 'none';
+                document.getElementById('paste-btn').style.opacity = '0.5';
+
+                try {
+                    const folderRes = await fetch('/api/select_folder');
+                    const folderData = await folderRes.json();
+                    if (folderData.folder) {
+                        downloadFolder = folderData.folder;
+                    } else if (folderData.error) {
+                        throw new Error(folderData.error);
+                    } else {
+                        showMessage("Se canceló la selección de carpeta.", true);
+                        document.getElementById('paste-btn').style.pointerEvents = 'auto';
+                        document.getElementById('paste-btn').style.opacity = '1';
+                        return; // Cancelado
+                    }
+                } catch (err) {
+                    console.warn("Fallo selector local, usando defecto:", err);
+                    // No bloqueamos en web si falla
                 }
-            } catch (err) {
-                showMessage("No se pudo abrir el selector de carpeta: " + err.message, true);
-                document.getElementById('paste-btn').style.pointerEvents = 'auto';
-                document.getElementById('paste-btn').style.opacity = '1';
-                return;
             }
 
             const btn = document.getElementById('download-btn');
