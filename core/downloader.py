@@ -1,3 +1,7 @@
+import os
+import sys
+import re
+from typing import Callable, Dict, Any, Optional
 import yt_dlp
 import tempfile
 import concurrent.futures
