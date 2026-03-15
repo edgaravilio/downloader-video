@@ -1,0 +1,37 @@
+steps:
+  # 1. Build the Docker image with unique tag
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/video-downloader-repo/video-downloader:$BUILD_ID', '.']
+
+  # 2. Push the versioned image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/video-downloader-repo/video-downloader:$BUILD_ID']
+
+  # 3. Deploy to Cloud Run using the unique tag
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run',
+        'deploy',
+        'video-downloader-web',
+        '--image',
+        'us-central1-docker.pkg.dev/$PROJECT_ID/video-downloader-repo/video-downloader:$BUILD_ID',
+        '--region',
+        'us-central1',
+        '--platform',
+        'managed',
+        '--allow-unauthenticated',
+        '--memory',
+        '1Gi',
+        '--set-secrets',
+        'YOUTUBE_COOKIES=youtube-cookies:latest'
+      ]
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/video-downloader-repo/video-downloader'
+
+
+# Habilitando logs para depuración local
+# options:
+#   logging: CLOUD_LOGGING_ONLY

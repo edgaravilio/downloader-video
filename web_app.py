@@ -1,13 +1,33 @@
 import os
-import uuid
-from flask import Flask, request, jsonify, render_template, send_file
+import sys
+import logging
+import json
+import base64
+import requests
+import traceback
+import mimetypes
+import re
+from urllib.parse import quote
+from flask import Flask, render_template, request, jsonify, send_file
 from flask_cors import CORS
 
+import yt_dlp
 from core.utils import validate_url, format_time
 from core.downloader import VideoDownloader
 from core.queue_manager import QueueManager
 
-app = Flask(__name__)
+# --- CONFIGURACIÓN DE ENTORNO PARA PORTABILIDAD ---
+def get_resource_path(relative_path):
+    """ Obtiene la ruta absoluta al recurso, funciona para dev y para PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
+
+# Asegurar que Flask encuentre los templates
+app = Flask(__name__, 
+            template_folder=get_resource_path('templates'))
 CORS(app)
 
 downloader = VideoDownloader()
@@ -176,7 +196,6 @@ def cleanup_download(download_id):
     # si usamos la carpeta final directo.
     return jsonify({"success": True})
 
-import mimetypes
 
 @app.route('/api/download_file/<download_id>', methods=['GET'])
 @app.route('/api/download_file/<download_id>/<filename>', methods=['GET'])
@@ -195,8 +214,6 @@ def download_file(download_id, filename=None):
             mime_type = 'video/mp4' # fallback
             
         # Limpiar el nombre para la cabecera standard (solo ASCII)
-        import re
-        from urllib.parse import quote
         safe_filename = re.sub(r'[^\x00-\x7f]', '', actual_filename).replace('"', '')
         if not safe_filename or safe_filename.isspace():
             safe_filename = "video.mp4"
@@ -212,7 +229,9 @@ def download_file(download_id, filename=None):
         )
         
         # Seteamos la cabecera de forma segura para evitar el UnicodeEncodeError en el servidor
+        # Usamos format simple para filename y RFC 5987 para filename*
         response.headers["Content-Disposition"] = f"attachment; filename=\"{safe_filename}\"; filename*=UTF-8''{encoded_filename}"
+        response.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
         return response
     else:
         return "Archivo no encontrado en el disco.", 404

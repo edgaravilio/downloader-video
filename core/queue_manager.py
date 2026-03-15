@@ -108,6 +108,7 @@ class QueueManager:
             # yt-dlp arroja error al forzar la cancelación/pausa; filtramos según nuestro estado deseado.
             if item.status == "cancelled":
                 item.message = "Descarga cancelada."
+                self._cleanup_parts(item)
             elif item.status == "paused":
                 item.message = "Pausado"
             else:
@@ -207,13 +208,30 @@ class QueueManager:
             for item in self.items.values():
                 if item.status not in ["completed", "cancelled"]:
                     self.cancel_item(item.id)
+                    # Forzar limpieza inmediata para los que no están activos
+                    if item.status == "cancelled":
+                        self._cleanup_parts(item)
 
     def _cleanup_parts(self, item: DownloadItem):
-        """"Intenta emular el borrado de archivos temporales de este item si fue cancelado e inactivo" """
-        # Dado que yt-dlp nombra el .part según el hash + ext, si no sabemos el nombre exacto es dificil sin escaneo. 
-        # Este método es un placeholder; yt-dlp borra parts si cancelas un merge en algunos pasos,
-        # pero para ser exhaustivos requeriria guardar outtmpl resuelto.
-        pass
+        """Intenta borrar restos de archivos (.part, .ytdl) si la descarga se cancela o falla."""
+        if not item.title or not item.download_folder:
+            return
+            
+        try:
+            # Limpiar nombre para búsqueda (quitar caracteres que yt-dlp suele escapar o cambiar)
+            # Buscamos archivos que comiencen con el título (truncado por seguridad)
+            prefix = item.title[:50] 
+            if os.path.exists(item.download_folder):
+                for f in os.listdir(item.download_folder):
+                    if f.startswith(prefix) and (f.endswith(".part") or f.endswith(".ytdl")):
+                        full_path = os.path.join(item.download_folder, f)
+                        try:
+                            os.remove(full_path)
+                            print(f"[QueueManager] Limpiado residuo: {f}")
+                        except Exception as e:
+                            print(f"[QueueManager] No se pudo borrar {f}: {e}")
+        except Exception as e:
+            print(f"[QueueManager] Error en limpieza de residuos: {e}")
 
     def clear_finished_items(self):
         """Elimina de la cola los items que ya terminaron (completados, cancelados o con error)."""

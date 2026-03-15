@@ -3,3 +3,4 @@ Flask-Cors>=4.0.0
 yt-dlp
 gunicorn
 Pillow
+requests

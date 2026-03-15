@@ -1,0 +1,56 @@
+# Descargas y archivos temporales
+downloads/
+temp/
+*.part
+*.ytdl
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+dist/
+build/
+*.spec
+
+# Python caché
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Secretos y credenciales (CRÍTICO)
+cookies_temp.txt
+*.txt
+!requirements*.txt
+!README*.md
+secrets/
+.env
+
+# Configuración de IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Cloud y Configuración
+.gemini/
+service.yaml
+service_utf8.yaml
+
+# Binarios pesados (Recomendado subirlos a GitHub Releases)
+*.exe
+*.app
+*.dmg
+*.pkg
+*.deb
+*.rpm
+*.zip
+*.tar.gz
+
+# Archivos que SÍ deben estar en Git pero estaban excluidos
+#!.gitignore
+#!Dockerfile
+!RELEASE/
+!templates/
+!core/
+!ui/

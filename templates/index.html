@@ -4,403 +4,421 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Downloader Web</title>
+    <title>Video Downloader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --primary-color: #3b82f6;
-            --primary-hover: #2563eb;
-            --text-color: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: rgba(255, 255, 255, 0.1);
-            --glass-bg: rgba(30, 41, 59, 0.7);
-            --error-color: #ef4444;
-            --success-color: #10b981;
+            --bg-deep: #020617;
+            --bg-accent: #0f172a;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --secondary: #8b5cf6;
+            --secondary-glow: rgba(139, 92, 246, 0.3);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass: rgba(15, 23, 42, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.04);
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, var(--bg-color), #1e293b);
+            font-family: 'Outfit', sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, transparent), 
+                        radial-gradient(circle at bottom left, #0f172a, transparent), 
+                        var(--bg-deep);
             background-attachment: fixed;
-            color: var(--text-color);
+            color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            box-sizing: border-box;
+            overflow-x: hidden;
         }
 
-        /* Glassmorphism Container */
+        /* Avanzado Glassmorphism */
         .container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
-            padding: 40px;
+            background: var(--glass);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 28px;
+            padding: 48px;
             width: 100%;
-            max-width: 550px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.1) inset;
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            max-width: 580px;
+            box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.6), 
+                        0 0 0 1px var(--glass-border) inset;
+            border: 1px solid var(--glass-border);
+            animation: containerAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        @keyframes containerAppear {
+            from { opacity: 0; transform: translateY(30px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         h1 {
             margin-top: 0;
             text-align: center;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #60a5fa, #a78bfa);
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 30px;
         }
 
-        .paste-section {
+        .header-summary {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .input-group {
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
         }
 
-        .btn-paste {
+        input[type="text"] {
             width: 100%;
-            padding: 16px 20px;
-            border-radius: 12px;
-            border: none;
-            background: linear-gradient(135deg, #65a30d, #4d7c0f);
+            padding: 18px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            background: rgba(2, 6, 23, 0.4);
             color: white;
-            font-size: 18px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"]:focus {
+            background: rgba(2, 6, 23, 0.6);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .actions-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn-main {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), #2563eb);
+            color: white;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            transition: transform 0.1s, box-shadow 0.2s;
-            box-shadow: 0 4px 14px 0 rgba(101, 163, 13, 0.4);
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
         }
 
-        .btn-paste:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(101, 163, 13, 0.5);
+        .btn-main:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+            filter: brightness(1.1);
         }
 
-        .btn-paste:active {
-            transform: translateY(1px);
+        .btn-main:active {
+            transform: translateY(1px) scale(0.98);
         }
 
+        .btn-icon {
+            padding: 0 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Modal Mejora */
         .choice-modal {
             position: absolute;
-            top: 100%;
+            top: calc(100% + 12px);
             left: 0;
             right: 0;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            margin-top: 10px;
-            z-index: 50;
+            background: #1e293b;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            z-index: 100;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: modalSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalSlide {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .choice-item {
             display: flex;
             align-items: center;
-            padding: 16px 20px;
+            padding: 20px;
             cursor: pointer;
-            transition: background 0.2s;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .choice-item:last-child {
-            border-bottom: none;
+            transition: all 0.2s ease;
+            gap: 16px;
         }
 
         .choice-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(59, 130, 246, 0.1);
         }
 
-        .choice-icon {
-            width: 32px;
-            height: 32px;
-            margin-right: 15px;
-            color: var(--text-color);
+        .choice-item:not(:last-child) {
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .choice-icon-wrap {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             display: flex;
-            flex-shrink: 0;
             align-items: center;
             justify-content: center;
+            color: var(--primary);
         }
 
-        .choice-text h4 {
-            margin: 0 0 4px 0;
-            font-size: 16px;
+        .choice-info h4 { margin: 0; font-size: 16px; color: var(--text-main); }
+        .choice-info p { margin: 4px 0 0 0; font-size: 13px; color: var(--text-dim); }
+
+        /* Video Info Card */
+        #video-info {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid var(--glass-border);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .thumbnail-wrap {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 24px;
+            aspect-ratio: 16/9;
+        }
+
+        .thumbnail-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .thumbnail-wrap:hover .thumbnail-img {
+            transform: scale(1.05);
+        }
+
+        .video-details h2 {
+            font-size: 20px;
             font-weight: 600;
-        }
-
-        .choice-text p {
-            margin: 0;
-            font-size: 13px;
-            color: var(--text-muted);
+            margin: 0 0 8px 0;
             line-height: 1.4;
         }
 
+        .video-meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .meta-tag {
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-dim);
+            border: 1px solid var(--glass-border);
+        }
+
         select {
             width: 100%;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background: rgba(15, 23, 42, 0.5);
-            color: var(--text-color);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            background: rgba(2, 6, 23, 0.4);
+            color: var(--text-main);
             font-size: 16px;
-            transition: all 0.2s;
+            font-family: inherit;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 20px;
+            transition: all 0.3s ease;
         }
 
         select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-            background: rgba(15, 23, 42, 0.8);
+            border-color: var(--primary);
+            background-color: rgba(2, 6, 23, 0.6);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
-        select {
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat, repeat;
-            background-position: right .7em top 50%, 0 0;
-            background-size: .65em auto, 100%;
-        }
-
-        button {
-            padding: 14px 24px;
-            border-radius: 12px;
-            border: none;
-            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.1s, box-shadow 0.2s;
-            box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.39);
-        }
-
-        button:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        button:active:not(:disabled) {
-            transform: translateY(1px);
-        }
-
-        button:disabled {
-            background: #475569;
-            box-shadow: none;
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        #video-info {
-            margin-top: 25px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        .thumbnail-container {
-            position: relative;
-            width: 100%;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        .thumbnail {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.3s;
-        }
-
-        .thumbnail-container:hover .thumbnail {
-            transform: scale(1.03);
-        }
-
-        .video-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 20px;
-        }
-
-        .video-title {
-            font-weight: 700;
-            font-size: 20px;
-            line-height: 1.3;
-        }
-
-        .video-channel {
-            color: #cbd5e1;
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .video-duration {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .download-btn {
-            width: 100%;
-            font-size: 18px;
-            padding: 16px;
-            margin-top: 10px;
-        }
-
-        /* Progress Area */
-        #progress-container {
-            margin-top: 25px;
-            background: rgba(15, 23, 42, 0.6);
-            padding: 20px;
+        /* Queue Items */
+        .queue-item {
+            background: rgba(15, 23, 42, 0.3);
             border-radius: 16px;
-            border: 1px solid var(--border-color);
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 12px;
-            background-color: #334155;
-            border-radius: 6px;
-            overflow: hidden;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             margin-bottom: 12px;
+            position: relative;
         }
 
-        .progress-bar-fill {
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 12px 0;
+            position: relative;
+        }
+
+        .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: #3b82f6 !important;
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.3s linear;
         }
 
-        .progress-details {
-            display: flex;
-            justify-content: space-between;
+
+        .btn-sm {
+            padding: 8px 16px;
+            border-radius: 12px;
             font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        #status-text {
-            font-size: 14px;
-            text-align: center;
-            margin-top: 15px;
-            font-weight: 500;
-        }
-
-        /* Recent Downloads */
-        .recent-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed var(--border-color);
-        }
-
-        .recent-title {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+            color: white;
+            text-decoration: none;
+            flex-shrink: 0;
         }
 
-        .recent-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .btn-sm-warning { background: var(--warning); color: #fff; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25); }
+        .btn-sm-error { background: var(--error); color: #fff; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25); }
+        .btn-sm-success { background: var(--success); color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); }
+        .btn-sm-dim { background: rgba(255, 255, 255, 0.05); color: var(--text-dim); border: 1px solid var(--glass-border); }
+
+        .btn-sm:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .btn-sm:active { transform: translateY(0); }
+
+        #global-controls {
+            display: flex !important;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            width: 100%;
         }
 
-        .recent-item {
+        .progress-fill.animating::after {
+            opacity: 1;
+            animation: shine 1.5s infinite;
+        }
+
+        @keyframes shine {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(100%); }
+        }
+
+
+        /* History */
+        .history-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
+            gap: 16px;
+            padding: 12px;
+            border-radius: 14px;
+            background: var(--glass-highlight);
             cursor: pointer;
-            transition: background 0.2s;
-            border: 1px solid transparent;
+            transition: all 0.2s;
+            margin-bottom: 8px;
         }
 
-        .recent-item:hover {
+        .history-item:hover {
             background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(4px);
         }
 
-        .recent-thumb {
-            width: 50px;
-            height: 28px;
-            border-radius: 4px;
+        .history-thumb {
+            width: 64px;
+            height: 36px;
+            border-radius: 6px;
             object-fit: cover;
         }
 
-        .recent-item-title {
-            font-size: 13px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: #e2e8f0;
-        }
-
-        .text-error {
-            color: var(--error-color) !important;
-        }
-
-        .text-success {
-            color: var(--success-color) !important;
-        }
-
-        .loader {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, .3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 0.8s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        /* Utility */
+        .hidden { display: none !important; }
+        .text-error { color: var(--error); }
+        .text-success { color: var(--success); }
+        .text-warning { color: var(--warning); }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Mobile Adjustments */
+        @media (max-width: 640px) {
+            .container { padding: 32px 24px; }
+            h1 { font-size: 26px; }
+            .btn-main { font-size: 15px; }
         }
     </style>
 </head>
@@ -408,99 +426,118 @@
 <body>
 
     <div class="container">
-        <h1>Video Downloader Web 📹</h1>
+        <h1>
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 12L12 16L16 12" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 8V16" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <!-- v4.0.1-final -->
+            Video Downloader
+        </h1>
+        <p class="header-summary">
+            Descarga videos en alta calidad (4K/HD), extrae audio MP3 y procesa playlists completas desde YouTube, Facebook, Instagram y más de 1000 sitios. Rápido, seguro y diseñado para una experiencia buena.
+        </p>
 
-        <div class="paste-section">
-            <button id="paste-btn" class="btn-paste" onclick="handlePasteClick()">
-                <svg fill="currentColor" viewBox="0 0 24 24" style="width: 24px; height: 24px;">
-                    <path
-                        d="M19 2h-4.18C14.4.84 13.3 0 12 0c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm7 18H5V4h2v3h10V4h2v16z" />
-                </svg>
-                <span id="paste-btn-text">Pegar enlace</span>
-            </button>
-            <div id="playlist-choice-modal" class="choice-modal hidden">
-                <div class="choice-item" onclick="submitUrl(false)">
-                    <div class="choice-icon">
-                        <svg fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM8 15c0-1.66 1.34-3 3-3 .35 0 .69.07 1 .18V6h5v2h-3v7.03c-.02 1.64-1.35 2.97-3 2.97-1.66 0-3-1.34-3-3z" />
-                        </svg>
-                    </div>
-                    <div class="choice-text">
-                        <h4>Descarga un Vídeo</h4>
-                        <p>Este vídeo es parte de una playlist. Descarga solo un vídeo.</p>
-                    </div>
+        <div class="input-section">
+            <div class="input-group">
+                <input type="text" id="video-url" placeholder="Pega el enlace de YouTube, FB o más..." 
+                    onkeypress="if(event.key === 'Enter') handlePasteClick()">
+                
+                <div class="actions-row">
+                    <button id="paste-btn" class="btn-main" onclick="handlePasteClick()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                        <span id="paste-btn-text">Analizar Video</span>
+                    </button>
+                    <button class="btn-icon" onclick="clearInput()" title="Limpiar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
                 </div>
-                <div class="choice-item" onclick="submitUrl(true)">
-                    <div class="choice-icon">
-                        <svg fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M4 10h12v2H4zm0-4h12v2H4zm0 8h8v2H4zm10 0v6l5-3z" />
-                        </svg>
+
+                <div id="playlist-choice-modal" class="choice-modal hidden">
+                    <div style="display:flex; justify-content: flex-end; margin-bottom: 8px;">
+                        <button class="btn-sm btn-sm-dim" style="padding: 4px 8px;" onclick="closeModal()">✕</button>
                     </div>
-                    <div class="choice-text">
-                        <h4>Descarga un Playlist</h4>
-                        <p>Guarda todos los vídeos actuales de playlist</p>
+                    <div class="choice-item" onclick="submitUrl(false)">
+                        <div class="choice-icon-wrap">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                        </div>
+                        <div class="choice-info">
+                            <h4>Descargar vídeo único</h4>
+                            <p>Solo procesar este vídeo de la lista.</p>
+                        </div>
+                    </div>
+                    <div class="choice-item" onclick="submitUrl(true)">
+                        <div class="choice-icon-wrap">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                        </div>
+                        <div class="choice-info">
+                            <h4>Descargar Playlist completa</h4>
+                            <p>Procesar todos los vídeos en cola.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="general-msg" style="text-align: center; margin-bottom: 15px; font-weight: 500;"></div>
+        <div id="general-msg" style="text-align: center; margin: 16px 0; font-size: 14px; font-weight: 500;"></div>
 
         <div id="video-info" class="hidden">
-            <div class="thumbnail-container">
-                <img id="thumbnail" class="thumbnail" src="" alt="Thumbnail">
+            <div class="thumbnail-wrap">
+                <img id="thumbnail" class="thumbnail-img" src="" alt="Thumbnail">
             </div>
-            <div class="video-meta">
-                <div id="video-title" class="video-title">Título del Video</div>
-                <div id="video-channel" class="video-channel">Canal</div>
-                <div id="video-duration" class="video-duration">Duración: 00:00</div>
+            
+            <div class="video-details">
+                <h2 id="video-title">Título del Video</h2>
+                <div class="video-meta-tags">
+                    <span id="video-channel" class="meta-tag">Canal</span>
+                    <span id="video-duration" class="meta-tag">Duración: 00:00</span>
+                </div>
             </div>
 
-            <label for="quality-select"
-                style="display:block; margin-bottom:8px; font-weight: 500; color: #e2e8f0;">Selecciona un
-                Formato:</label>
-            <select id="quality-select"></select>
+            <div style="margin-bottom: 20px;">
+                <label style="display:block; margin-bottom:12px; font-weight: 500; color: var(--text-dim); font-size: 14px;">CALIDAD Y FORMATO</label>
+                <select id="quality-select"></select>
+            </div>
 
             <!-- Contenedor Playlist -->
-            <div id="playlist-container" class="hidden"
-                style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
-                <label style="display:block; margin-bottom:10px; font-weight: 600;">Videos detectados
-                    (Playlist):</label>
-                <div style="margin-bottom: 10px;">
-                    <button type="button" onclick="selectAll(true)"
-                        style="padding: 6px 12px; font-size: 13px; margin-right: 5px;">Seleccionar Todo</button>
-                    <button type="button" onclick="selectAll(false)"
-                        style="padding: 6px 12px; font-size: 13px; background: #475569;">Desmarcar Todo</button>
+            <div id="playlist-container" class="hidden" style="margin-top: 24px; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px;">
+                <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <span style="font-weight: 600; font-size: 14px;">Videos de la Lista</span>
+                    <div style="display:flex; gap: 8px;">
+                        <button class="btn-sm btn-sm-dim" onclick="selectAll(true)">Todos</button>
+                        <button class="btn-sm btn-sm-dim" onclick="selectAll(false)">Ninguno</button>
+                    </div>
                 </div>
-                <div id="playlist-items"
-                    style="max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 8px;">
+                <div id="playlist-items" style="max-height: 220px; overflow-y: auto; padding-right: 8px; display: flex; flex-direction: column; gap: 8px;">
                     <!-- Items dinámicos -->
                 </div>
             </div>
 
-            <button id="download-btn" class="download-btn" onclick="startDownloadSequence()">Descargar</button>
+            <button id="download-btn" class="btn-main" style="width: 100%; margin-top: 24px; font-size: 18px;" onclick="startDownloadSequence()">
+                Comenzar Descarga
+            </button>
         </div>
 
-        <div id="progress-container" class="hidden" style="margin-top: 25px;">
-            <h3 style="margin-top: 0; font-size: 16px; margin-bottom: 15px;">Cola de Descargas</h3>
-            <div id="queue-list"
-                style="display: flex; flex-direction: column; gap: 15px; max-height: 400px; overflow-y: auto; padding-right: 5px;">
-                <!-- Mini progress items dinámicos -->
+        <div id="progress-container" class="hidden" style="margin-top: 24px; padding: 24px; background: rgba(15, 23, 42, 0.4); border-radius: 24px; border: 1px solid rgba(255,255,255,0.05);">
+            <div style="margin-bottom: 20px;">
+                <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.2px;">Cola de Descargas</h3>
+                    <div id="global-actions" class="hidden">
+                        <button id="global-clear-btn" class="btn-sm btn-sm-dim" style="width: auto; padding: 0 12px; font-size: 11px;" onclick="clearFinished()">🧹 Limpiar Terminados</button>
+                    </div>
+                </div>
+                <div style="height: 1px; background: rgba(255,255,255,0.08); width: 100%;"></div>
             </div>
-
-            <div id="status-text" class="hidden">Iniciando motor...</div>
-            <div style="display: flex; gap: 10px;">
-                <button id="cancel-btn" class="hidden download-btn"
-                    style="margin-top: 20px; flex: 1; background: var(--error-color);" onclick="cancelAllDownloads()">
-                    Cancelar Activas
-                </button>
+            
+            <div id="queue-list" style="display: flex; flex-direction: column; gap: 0;">
+                <!-- Controles globales e ítems de cola -->
             </div>
         </div>
 
-        <div id="recent-container" class="recent-section hidden">
-            <div class="recent-title">Descargas Recientes</div>
-            <div id="recent-list" class="recent-list"></div>
+        <div id="recent-container" style="margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 32px;" class="hidden">
+            <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 20px;">RECIENTES</div>
+            <div id="recent-list"></div>
         </div>
     </div>
 
@@ -510,99 +547,101 @@
         let currentVideoData = null; // Para historial
         let playlistData = []; // Guarda items actuales
         let isCurrentPlaylist = false;
+        let autoDownloadedIds = new Set(); // Para no re-descargar automáticamente lo mismo
 
-        let pendingClipboardUrl = ""; // Stores URL from clipboard until user chooses
+        function downloadFinalFile(id, filename) {
+            const safeName = filename ? encodeURIComponent(filename) : 'video.mp4';
+            window.open(`/api/download_file/${id}/${safeName}`, '_blank');
+        }
+
+        let pendingUrl = ""; 
 
         async function handlePasteClick() {
-            try {
-                // Leer portapapeles
-                const text = await navigator.clipboard.readText();
-                if (!text || !text.trim()) {
-                    showMessage("El portapapeles está vacío o no tiene texto válido", true);
+            const input = document.getElementById('video-url');
+            let url = input.value.trim();
+
+            if (!url) {
+                try {
+                    url = await navigator.clipboard.readText();
+                    url = url.trim();
+                    if (url) {
+                        input.value = url;
+                    } else {
+                        showMessage("El campo está vacío. Ingresa un enlace.", true);
+                        input.focus();
+                        return;
+                    }
+                } catch (err) {
+                    showMessage("Pega el enlace manualmente en el campo.", true);
+                    input.focus();
                     return;
                 }
+            }
 
-                const url = text.trim();
-                if (!url.match(/^https?:\/\/.+/)) {
-                    showMessage("El portapapeles no contiene un enlace válido. Copia una URL", true);
-                    return;
-                }
+            if (!url.match(/^https?:\/\/.+/)) {
+                showMessage("Enlace inválido. Usa http/https.", true);
+                return;
+            }
 
-                pendingClipboardUrl = url;
+            pendingUrl = url;
 
-                // Si la URL es de youtube (incluyendo youtu.be) y contiene 'list=', mostrar modal
-                const isYoutubePlaylist = (url.includes('youtube.com/') || url.includes('youtu.be/')) &&
-                    (url.includes('list=') || url.includes('&list=') || url.includes('?list='));
+            const isYoutubePlaylist = (url.includes('youtube.com/') || url.includes('youtu.be/')) &&
+                (url.includes('list=') || url.includes('&list=') || url.includes('?list='));
 
-                if (isYoutubePlaylist) {
-                    const modal = document.getElementById('playlist-choice-modal');
-                    if (modal.classList.contains('hidden')) {
-                        modal.classList.remove('hidden');
-                    } else {
-                        modal.classList.add('hidden');
-                    }
-                } else {
-                    // Es un link normal de video individual, saltarse el modal y analizar directamente
-                    submitUrl(false);
-                }
-
-            } catch (err) {
-                // Fallback por permisos de navegador bloqueados
-                console.warn("Permiso de portapapeles falló: ", err);
-                const fallbackUrl = prompt("Por seguridad el navegador bloqueó el pegado automático.\n\nPor favor, PEGA AQUÍ TU ENLACE (Ctrl+V):");
-                if (fallbackUrl && fallbackUrl.trim().match(/^https?:\/\/.+/)) {
-                    pendingClipboardUrl = fallbackUrl.trim();
-                    const url = pendingClipboardUrl;
-
-                    const isYoutubePlaylist = (url.includes('youtube.com/') || url.includes('youtu.be/')) &&
-                        (url.includes('list=') || url.includes('&list=') || url.includes('?list='));
-
-                    if (isYoutubePlaylist) {
-                        document.getElementById('playlist-choice-modal').classList.remove('hidden');
-                    } else {
-                        submitUrl(false);
-                    }
-                } else if (fallbackUrl) {
-                    showMessage("Enlace inválido introducido", true);
-                }
+            if (isYoutubePlaylist) {
+                document.getElementById('playlist-choice-modal').classList.remove('hidden');
+            } else {
+                analyzeVideo(url, false);
             }
         }
 
         function submitUrl(processPlaylist) {
             document.getElementById('playlist-choice-modal').classList.add('hidden');
-            if (pendingClipboardUrl) {
-                analyzeVideo(pendingClipboardUrl, processPlaylist);
+            if (pendingUrl) {
+                analyzeVideo(pendingUrl, processPlaylist);
             }
+        }
+
+        function closeModal() {
+            document.getElementById('playlist-choice-modal').classList.add('hidden');
+        }
+
+        function clearInput() {
+            const input = document.getElementById('video-url');
+            input.value = '';
+            pendingUrl = '';
+            document.getElementById('video-info').classList.add('hidden');
+            document.getElementById('general-msg').textContent = '';
+            input.focus();
         }
 
         function showMessage(msg, isError = false) {
             const el = document.getElementById('general-msg');
+            if (!el) return;
             el.textContent = msg;
             el.className = isError ? 'text-error' : 'text-success';
         }
 
-        async function analyzeVideo(urlToForce, processPlaylist = true) {
-            const url = urlToForce;
-
-            if (!url) {
-                showMessage("Por favor, proporciona una URL válida.", true);
-                return;
-            }
+        async function analyzeVideo(url, processPlaylist = true) {
+            if (!url) return;
 
             const btn = document.getElementById('paste-btn');
             const btnText = document.getElementById('paste-btn-text');
-            const originalText = btnText.innerHTML;
-            btnText.innerHTML = 'Analizando...';
-            btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none';
+            const videoInfo = document.getElementById('video-info');
+            
+            const originalText = btnText ? btnText.innerHTML : 'Analizar';
+            
+            if (btnText) btnText.innerHTML = 'Analizando...';
+            if (btn) {
+                btn.style.opacity = '0.7';
+                btn.style.pointerEvents = 'none';
+            }
 
             showMessage("Analizando enlace...", false);
-
-            document.getElementById('video-info').classList.add('hidden');
-            document.getElementById('cancel-btn').classList.add('hidden');
-
+            if (videoInfo) videoInfo.classList.add('hidden');
 
             try {
+                console.log("Iniciando fetch a /api/analyze para:", url);
                 const res = await fetch('/api/analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -696,6 +735,11 @@
         }
 
         async function startDownloadSequence() {
+            if (!isCurrentPlaylist && !currentVideoData) {
+                showMessage("Primero analiza un video.", true);
+                return;
+            }
+
             const format_id = document.getElementById('quality-select').value;
             let urlsToDownload = [];
 
@@ -747,13 +791,7 @@
             if (!queueItemsContainer) {
                 const queueList = document.getElementById('queue-list');
                 queueList.innerHTML = `
-                    <div id="global-controls" style="display:flex; gap:10px; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); justify-content: flex-end;">
-                        <button id="global-pause-btn" class="hidden" onclick="pauseAll()" style="background:#f59e0b; color:#fff; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; font-size:12px;" title="Pausar Toda la Cola">⏸ Pausar Todo</button>
-                        <button id="global-resume-btn" class="hidden" onclick="resumeAll()" style="background:#10b981; color:#fff; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; font-size:12px;" title="Reanudar Toda la Cola">▶ Reanudar Todo</button>
-                        <button id="global-cancel-btn" class="hidden" onclick="cancelAll()" style="background:#ef4444; color:#fff; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; font-size:12px;" title="Cancelar Toda la Cola">⏹ Cancelar Todo</button>
-                        <button id="global-clear-btn" class="hidden" onclick="clearFinished()" style="background:#64748b; color:#fff; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; font-size:12px;" title="Limpiar videos Finalizados/Cancelados de la lista">🧹 Limpiar Terminados</button>
-                    </div>
-                    <div id="queue-items-container" style="display:flex; flex-direction:column; gap:10px;"></div>
+                    <div id="queue-items-container" style="display:flex; flex-direction:column; gap:16px;"></div>
                 `;
             }
 
@@ -775,7 +813,8 @@
             btn.disabled = false;
 
             // Limpiar input y resetear vista de preview para el siguiente enlace
-            document.getElementById('video-url').value = '';
+            const input = document.getElementById('video-url');
+            if (input) input.value = '';
             document.getElementById('video-info').classList.add('hidden');
             currentVideoData = null;
             playlistData = [];
@@ -813,31 +852,33 @@
 
             div = document.createElement('div');
             div.id = `queue-item-${id}`;
-            div.style.background = 'rgba(15, 23, 42, 0.6)';
-            div.style.padding = '15px';
-            div.style.borderRadius = '12px';
-            div.style.border = '1px solid var(--border-color)';
+            div.className = 'queue-item';
 
             div.innerHTML = `
-                <div class="progress-header" style="margin-bottom: 8px;">
-                    <span style="font-weight:600; font-size: 13px; max-width: 70%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${title}</span>
-                    <span id="progress-percent-${id}" style="color: var(--primary-color);">0%</span>
+                <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-weight:700; font-size: 14px; color: #fff; max-width: 80%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${title}</span>
+                    <span id="progress-percent-${id}" style="color: #3b82f6; font-weight: 700; font-size: 14px;">0.0%</span>
                 </div>
-                <div class="progress-bar-bg" style="height: 8px; margin-bottom: 8px;">
-                    <div id="progress-bar-fill-${id}" class="progress-bar-fill"></div>
+                <div class="progress-bar">
+                    <div id="progress-bar-fill-${id}" class="progress-fill"></div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
-                    <div class="progress-details" style="font-size: 11px;">
-                        <span id="progress-status-label-${id}">En cola...</span>
-                        <br>
-                        <span>
-                            <span id="progress-speed-${id}">-- MB/s</span> | <span id="progress-eta-${id}">ETA: --:--</span>
-                        </span>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                    <div id="progress-status-label-${id}" style="font-size: 12px; color: #94a3b8; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%;">
+                        Esperando...
                     </div>
                     <div style="display: flex; gap: 8px;">
-                        <button id="pause-btn-${id}" class="hidden" onclick="pauseDownload('${id}')" style="background:#f59e0b; color:#fff; border:none; border-radius:4px; padding:6px 10px; cursor:pointer; font-size:12px;" title="Pausar">⏸</button>
-                        <button id="resume-btn-${id}" class="hidden" onclick="resumeDownload('${id}')" style="background:#10b981; color:#fff; border:none; border-radius:4px; padding:6px 10px; cursor:pointer; font-size:12px;" title="Reanudar">▶</button>
-                        <button id="cancel-btn-${id}" onclick="cancelDownload('${id}')" style="background:#ef4444; color:#fff; border:none; border-radius:44px; padding:6px 10px; cursor:pointer; font-size:12px;" title="Cancelar">⏹</button>
+                        <button id="pause-btn-${id}" class="btn-sm btn-sm-warning hidden" onclick="pauseDownload('${id}')" title="Pausar">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
+                        </button>
+                        <button id="resume-btn-${id}" class="btn-sm btn-sm-success hidden" onclick="resumeDownload('${id}')" title="Reanudar">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+                        </button>
+                        <button id="download-file-btn-${id}" class="btn-sm btn-sm-success hidden" onclick="downloadFinalFile('${id}')" title="Descargar al PC">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        </button>
+                        <button id="cancel-btn-${id}" class="btn-sm btn-sm-error" onclick="cancelDownload('${id}')" title="Cancelar">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"/></svg>
+                        </button>
                     </div>
                 </div>
             `;
@@ -904,8 +945,16 @@
                 const res = await fetch('/api/queue_state');
                 const stateData = await res.json();
 
-                let allFinished = true;
                 const items = stateData.items;
+                let allFinished = true;
+                const progressContainer = document.getElementById('progress-container');
+                
+                if (Object.keys(items).length === 0) {
+                    if (progressContainer) progressContainer.classList.add('hidden');
+                    return;
+                } else if (progressContainer) {
+                    progressContainer.classList.remove('hidden');
+                }
 
                 // Limpiar del DOM los items que ya no existen en el backend (por clearFinished)
                 const container = document.getElementById('queue-items-container');
@@ -937,6 +986,7 @@
                     const pauseBtn = document.getElementById(`pause-btn-${downloadId}`);
                     const resumeBtn = document.getElementById(`resume-btn-${downloadId}`);
                     const cancelBtn = document.getElementById(`cancel-btn-${downloadId}`);
+                    const downloadFileBtn = document.getElementById(`download-file-btn-${downloadId}`);
 
                     if (!fillEl) continue;
 
@@ -961,74 +1011,120 @@
                     }
 
                     fillEl.style.width = `${progressVal}%`;
+                    fillEl.style.background = '';
                     pctEl.textContent = `${progressVal.toFixed(1)}%`;
-                    if (data.speed) spdEl.textContent = data.speed;
-                    if (data.eta) etaEl.textContent = `ETA: ${data.eta}`;
 
                     // Update UI states based on exact state machine
                     if (data.status === 'pending') {
-                        lblEl.textContent = data.message || 'Pendiente en cola...';
-                        lblEl.className = 'text-warning'; // Let's use warning color for pending
-                        fillEl.style.background = 'var(--primary-color)';
+                        lblEl.textContent = `En cola...`;
+                        lblEl.className = 'text-warning';
+                        fillEl.classList.remove('animating');
                         if (pauseBtn) pauseBtn.classList.remove('hidden');
                         if (resumeBtn) resumeBtn.classList.add('hidden');
                         if (cancelBtn) cancelBtn.classList.remove('hidden');
                     } else if (data.status === 'downloading') {
-                        lblEl.textContent = data.message || 'Descargando...';
+                        const speedStr = data.speed || '0 KiB/s';
+                        const etaStr = data.eta || '--:--';
+                        lblEl.textContent = `Descargando: ${progressVal.toFixed(1)}% (Velocidad: ${speedStr} | Faltan: ${etaStr}) | ETA: ${etaStr}`;
                         lblEl.className = '';
-                        fillEl.style.background = 'var(--primary-color)';
+                        fillEl.classList.add('animating');
                         if (pauseBtn) pauseBtn.classList.remove('hidden');
                         if (resumeBtn) resumeBtn.classList.add('hidden');
                         if (cancelBtn) cancelBtn.classList.remove('hidden');
                     } else if (data.status === 'processing') {
-                        lblEl.textContent = data.message || 'Procesando archivo...';
+                        lblEl.textContent = `Procesando: 100% (Finalizando archivo...) | ETA: 00:00`;
                         lblEl.className = '';
-                        if (pauseBtn) pauseBtn.classList.add('hidden');
-                        if (resumeBtn) resumeBtn.classList.add('hidden');
-                        if (cancelBtn) cancelBtn.classList.add('hidden'); // No cancel during FFmpeg
-                    } else if (data.status === 'paused') {
-                        lblEl.textContent = data.message || 'Pausado';
-                        lblEl.className = 'text-warning';
-                        fillEl.style.background = 'var(--text-muted)';
-                        if (pauseBtn) pauseBtn.classList.add('hidden');
-                        if (resumeBtn) resumeBtn.classList.remove('hidden');
-                        if (cancelBtn) cancelBtn.classList.remove('hidden');
-                    } else if (data.status === 'completed') {
-                        lblEl.textContent = data.message || '¡Descargado en tu carpeta!';
-                        lblEl.className = 'text-success';
-                        fillEl.style.background = 'var(--success-color)';
+                        fillEl.classList.add('animating');
                         if (pauseBtn) pauseBtn.classList.add('hidden');
                         if (resumeBtn) resumeBtn.classList.add('hidden');
                         if (cancelBtn) cancelBtn.classList.add('hidden');
+                    } else if (data.status === 'paused') {
+                        lblEl.textContent = `Pausado: ${progressVal.toFixed(1)}%`;
+                        lblEl.className = 'text-warning';
+                        fillEl.classList.remove('animating');
+                        if (pauseBtn) pauseBtn.classList.add('hidden');
+                        if (resumeBtn) resumeBtn.classList.remove('hidden');
+                        if (cancelBtn) cancelBtn.classList.remove('hidden');
+                        if (downloadFileBtn) downloadFileBtn.classList.add('hidden');
+                    } else if (data.status === 'completed') {
+                        lblEl.textContent = `¡Completado!`;
+                        lblEl.className = 'text-success';
+                        fillEl.classList.remove('animating');
+                        if (pauseBtn) pauseBtn.classList.add('hidden');
+                        if (resumeBtn) resumeBtn.classList.add('hidden');
+                        if (cancelBtn) cancelBtn.classList.add('hidden');
+                        if (downloadFileBtn) {
+                            downloadFileBtn.classList.remove('hidden');
+                            downloadFileBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Descargar`;
+                            downloadFileBtn.style.width = "auto";
+                            downloadFileBtn.style.padding = "0 16px";
+                            downloadFileBtn.onclick = () => downloadFinalFile(downloadId, data.filename);
+                        }
+
+                        // Disparar descarga automática si es la primera vez que se completa en esta sesión
+                        if (!autoDownloadedIds.has(downloadId)) {
+                            autoDownloadedIds.add(downloadId);
+                            console.log("Iniciando auto-descarga para el PC:", data.filename);
+                            downloadFinalFile(downloadId, data.filename);
+                        }
                     } else if (data.status === 'error') {
                         lblEl.textContent = data.message || 'Error de descarga';
                         lblEl.className = 'text-error';
-                        fillEl.style.background = 'var(--error-color)';
+                        fillEl.classList.remove('animating');
                         if (pauseBtn) pauseBtn.classList.add('hidden');
                         if (resumeBtn) resumeBtn.classList.remove('hidden'); // Permitir reintento
                         if (cancelBtn) cancelBtn.classList.add('hidden');
                     } else if (data.status === 'cancelled') {
                         lblEl.textContent = data.message || 'Cancelado y Limpiado';
                         lblEl.className = 'text-error';
-                        fillEl.style.background = 'var(--error-color)';
+                        fillEl.classList.remove('animating');
                         if (pauseBtn) pauseBtn.classList.add('hidden');
                         if (resumeBtn) resumeBtn.classList.add('hidden');
                         if (cancelBtn) cancelBtn.classList.add('hidden');
                     }
                 }
 
-                // Aplicar visibilidad a botones globales
-                const gbPause = document.getElementById('global-pause-btn');
-                const gbResume = document.getElementById('global-resume-btn');
-                const gbCancel = document.getElementById('global-cancel-btn');
-                const gbClear = document.getElementById('global-clear-btn');
-
                 const isMulti = Object.keys(items).length > 1;
+                let gbControls = document.getElementById('global-controls');
 
-                if (gbPause) (isMulti && canPauseAll) ? gbPause.classList.remove('hidden') : gbPause.classList.add('hidden');
-                if (gbResume) (isMulti && canResumeAll) ? gbResume.classList.remove('hidden') : gbResume.classList.add('hidden');
-                if (gbCancel) (isMulti && canCancelAll) ? gbCancel.classList.remove('hidden') : gbCancel.classList.add('hidden');
+                if (isMulti && (canPauseAll || canResumeAll || canCancelAll)) {
+                    if (!gbControls) {
+                        const newControls = document.createElement('div');
+                        newControls.id = 'global-controls';
+                        newControls.innerHTML = `
+                            <button id="global-pause-btn" class="btn-sm btn-sm-warning" onclick="pauseAll()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg> 
+                                Pausar Todo
+                            </button>
+                            <button id="global-resume-btn" class="btn-sm btn-sm-success" onclick="resumeAll()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7L8 5z"/></svg>
+                                Reanudar Todo
+                            </button>
+                            <button id="global-cancel-btn" class="btn-sm btn-sm-error" onclick="cancelAll()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"/></svg>
+                                Cancelar Todo
+                            </button>
+                        `;
+                        const queueList = document.getElementById('queue-list');
+                        queueList.insertBefore(newControls, queueList.firstChild);
+                        gbControls = newControls;
+                    }
+                    // Actualizar visibilidad de botones individuales dentro del global
+                    const gPause = document.getElementById('global-pause-btn');
+                    const gResume = document.getElementById('global-resume-btn');
+                    const gCancel = document.getElementById('global-cancel-btn');
+                    if(gPause) gPause.classList.toggle('hidden', !canPauseAll);
+                    if(gResume) gResume.classList.toggle('hidden', !canResumeAll);
+                    if(gCancel) gCancel.classList.toggle('hidden', !canCancelAll);
+
+                } else if (gbControls) {
+                    gbControls.remove(); // ELIMINAR físicamente para que no ocupe espacio
+                }
+
+                const gbClear = document.getElementById('global-clear-btn');
+                const gbActionsHeader = document.getElementById('global-actions');
                 if (gbClear) canClearAll ? gbClear.classList.remove('hidden') : gbClear.classList.add('hidden');
+                if (gbActionsHeader) canClearAll ? gbActionsHeader.classList.remove('hidden') : gbActionsHeader.classList.add('hidden');
 
                 if (Object.keys(items).length > 0 && allFinished) {
                     clearInterval(globalPollingInterval);
@@ -1049,7 +1145,6 @@
             document.getElementById('download-btn').disabled = false;
             document.getElementById('paste-btn').style.pointerEvents = 'auto';
             document.getElementById('paste-btn').style.opacity = '1';
-            document.getElementById('cancel-btn').classList.add('hidden');
         }
 
         // --- Historial Local ---
@@ -1081,14 +1176,17 @@
             history.forEach(item => {
                 const thumbUrl = item.thumbnail || 'https://via.placeholder.com/640x360?text=Playlist';
                 const div = document.createElement('div');
-                div.className = 'recent-item';
+                div.className = 'history-item';
                 div.innerHTML = `
-                    <img src="${thumbUrl}" class="recent-thumb" alt="thumb">
-                    <span class="recent-item-title" title="${item.title}">${item.title}</span>
+                    <img src="${thumbUrl}" class="history-thumb" alt="thumb">
+                    <div style="flex:1; overflow:hidden;">
+                        <div style="font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${item.title}">${item.title}</div>
+                        <div style="font-size: 11px; color: var(--text-dim);">Haz clic para analizar de nuevo</div>
+                    </div>
                 `;
                 div.onclick = () => {
-                    pendingClipboardUrl = item.url;
-                    submitUrl(true);
+                    pendingUrl = item.url;
+                    submitUrl(false); // Analizar como video único por defecto desde historial
                 };
                 list.appendChild(div);
             });
