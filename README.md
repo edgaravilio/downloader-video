@@ -77,7 +77,7 @@ Para sistemas basados en Unix, el proyecto proporciona scripts de ejecución aut
 
 ### 🪟 Windows
 Para Windows, se proporcionan binarios ejecutables `.exe` que no requieren instalación previa.
-*   **Descarga**: Debido a que los ejecutables superan el límite de tamaño de archivos de Git (100MB), estos se encuentran alojados en la sección de **[Releases](https://github.com/edgaravilio/downloader-video/releases)** de este repositorio.
+*   **Descarga**: Debido a que los ejecutables superan el límite de tamaño de archivos de Git (100MB), estos se encuentran alojados en la sección de **[Releases](https://github.com/edgaravilio/downloader-video/release)** de este repositorio.
 *   **Versiones disponibles**:
     1.  **Portable (Web)**: Ideal para uso rápido en el navegador.
     2.  **Nativo (Desktop)**: Aplicación con ventana propia profesional.
@@ -99,24 +99,9 @@ Para facilitar la distribución, el repositorio contiene las siguientes carpetas
 Si desea generar sus propios archivos ejecutables, puede usar los archivos `.spec` incluidos:
 *   **Windows**: `pyinstaller VideoDownloader_Desktop_Hybrid.spec`
 *   **Linux/Mac**: Los scripts de automatización en `RELEASE/` se encargan de preparar el entorno si prefiere no compilar.
-## ☁️ Despliegue en la Nube (Google Cloud Run)
-
-Este proyecto está 100% optimizado para la nube. Para subirlo a tu propia infraestructura:
-
-1.  **Sube el código**: `gcloud run deploy --source .`
-2.  **Configura Cookies (Opcional pero recomendado)**:
-    *   Para descargar contenido protegido (Instagram bloqueado), exporta tus cookies en formato Netscape.
-    *   Agrégalas como una Variable de Env llamada `YOUTUBE_COOKIES`.
-
-> [!WARNING]
-> **Soporte de YouTube**: Las políticas actuales de Google Cloud/YouTube suelen bloquear descargas desde sus centros de datos incluso con cookies. Para descargar desde YouTube, se recomienda usar la **Versión de Escritorio**. Instagram, Facebook y otros sitios funcionan sin problemas en la nube.
-
----
 
 ---
 
 ## ⚖️ Disclaimer
 Esta herramienta ha sido creada únicamente con fines educativos y para uso personal. El autor no se hace responsable del uso indebido de este software ni de las infracciones a los términos de servicio de terceros sitios.
 
----
-*Diseñado por Antigravity AI - [edgaravilio](https://github.com/edgaravilio)*
