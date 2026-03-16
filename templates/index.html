@@ -33,9 +33,9 @@
 
         body {
             font-family: 'Outfit', sans-serif;
-            background: radial-gradient(circle at top right, #1e1b4b, transparent), 
-                        radial-gradient(circle at bottom left, #0f172a, transparent), 
-                        var(--bg-deep);
+            background: radial-gradient(circle at top right, #1e1b4b, transparent),
+                radial-gradient(circle at bottom left, #0f172a, transparent),
+                var(--bg-deep);
             background-attachment: fixed;
             color: var(--text-main);
             margin: 0;
@@ -56,16 +56,23 @@
             padding: 48px;
             width: 100%;
             max-width: 580px;
-            box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.6), 
-                        0 0 0 1px var(--glass-border) inset;
+            box-shadow: 0 32px 64px -16px rgba(0, 0, 0, 0.6),
+                0 0 0 1px var(--glass-border) inset;
             border: 1px solid var(--glass-border);
             animation: containerAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
 
         @keyframes containerAppear {
-            from { opacity: 0; transform: translateY(30px) scale(0.98); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         h1 {
@@ -189,8 +196,15 @@
         }
 
         @keyframes modalSlide {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .choice-item {
@@ -221,8 +235,17 @@
             color: var(--primary);
         }
 
-        .choice-info h4 { margin: 0; font-size: 16px; color: var(--text-main); }
-        .choice-info p { margin: 4px 0 0 0; font-size: 13px; color: var(--text-dim); }
+        .choice-info h4 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text-main);
+        }
+
+        .choice-info p {
+            margin: 4px 0 0 0;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
 
         /* Video Info Card */
         #video-info {
@@ -344,13 +367,38 @@
             flex-shrink: 0;
         }
 
-        .btn-sm-warning { background: var(--warning); color: #fff; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25); }
-        .btn-sm-error { background: var(--error); color: #fff; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25); }
-        .btn-sm-success { background: var(--success); color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25); }
-        .btn-sm-dim { background: rgba(255, 255, 255, 0.05); color: var(--text-dim); border: 1px solid var(--glass-border); }
+        .btn-sm-warning {
+            background: var(--warning);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+        }
 
-        .btn-sm:hover { filter: brightness(1.1); transform: translateY(-2px); }
-        .btn-sm:active { transform: translateY(0); }
+        .btn-sm-error {
+            background: var(--error);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+        }
+
+        .btn-sm-success {
+            background: var(--success);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-sm-dim {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-dim);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-sm:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-sm:active {
+            transform: translateY(0);
+        }
 
         #global-controls {
             display: flex !important;
@@ -373,8 +421,13 @@
         }
 
         @keyframes shine {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(100%); }
+            from {
+                transform: translateX(-100%);
+            }
+
+            to {
+                transform: translateX(100%);
+            }
         }
 
 
@@ -404,21 +457,47 @@
         }
 
         /* Utility */
-        .hidden { display: none !important; }
-        .text-error { color: var(--error); }
-        .text-success { color: var(--success); }
-        .text-warning { color: var(--warning); }
+        .hidden {
+            display: none !important;
+        }
+
+        .text-error {
+            color: var(--error);
+        }
+
+        .text-success {
+            color: var(--success);
+        }
+
+        .text-warning {
+            color: var(--warning);
+        }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Mobile Adjustments */
         @media (max-width: 640px) {
-            .container { padding: 32px 24px; }
-            h1 { font-size: 26px; }
-            .btn-main { font-size: 15px; }
+            .container {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .btn-main {
+                font-size: 15px;
+            }
         }
     </style>
 </head>
@@ -428,31 +507,44 @@
     <div class="container">
         <h1>
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 12L12 16L16 12" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 8V16" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path
+                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                    stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M8 12L12 16L16 12" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M12 8V16" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             <!-- v4.0.1-final -->
             Video Downloader
         </h1>
         <p class="header-summary">
-            Descarga videos en alta calidad (4K/HD), extrae audio MP3 y procesa playlists completas desde YouTube, Facebook, Instagram y más de 1000 sitios. Rápido, seguro y diseñado para una experiencia buena.
+            Descarga videos en alta calidad (4K/HD), extrae audio MP3 y procesa playlists completas desde YouTube,
+            Facebook, Instagram y más de 1000 sitios. Rápido, seguro y diseñado para una experiencia buena.
             <br>
-            <span style="color: #ffaa00; font-size: 0.9em; margin-top: 8px; display: block;">⚠️ Nota: La descarga de YouTube está temporalmente limitada en la versión Cloud (Nube). Use la versión para PC/Escritorio para una experiencia completa.</span>
+            <span style="color: #ffaa00; font-size: 0.9em; margin-top: 8px; display: block;">⚠️ Nota: La descarga de
+                YouTube está temporalmente limitada en la versión Cloud (Nube).</span>
         </p>
 
         <div class="input-section">
             <div class="input-group">
-                <input type="text" id="video-url" placeholder="Pega el enlace de YouTube, FB o más..." 
+                <input type="text" id="video-url" placeholder="Pega el enlace de YouTube, FB o más..."
                     onkeypress="if(event.key === 'Enter') handlePasteClick()">
-                
+
                 <div class="actions-row">
                     <button id="paste-btn" class="btn-main" onclick="handlePasteClick()">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                        </svg>
                         <span id="paste-btn-text">Analizar Video</span>
                     </button>
                     <button class="btn-icon" onclick="clearInput()" title="Limpiar">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
                     </button>
                 </div>
 
@@ -462,7 +554,11 @@
                     </div>
                     <div class="choice-item" onclick="submitUrl(false)">
                         <div class="choice-icon-wrap">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                            </svg>
                         </div>
                         <div class="choice-info">
                             <h4>Descargar vídeo único</h4>
@@ -471,7 +567,15 @@
                     </div>
                     <div class="choice-item" onclick="submitUrl(true)">
                         <div class="choice-icon-wrap">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
                         </div>
                         <div class="choice-info">
                             <h4>Descargar Playlist completa</h4>
@@ -488,7 +592,7 @@
             <div class="thumbnail-wrap">
                 <img id="thumbnail" class="thumbnail-img" src="" alt="Thumbnail">
             </div>
-            
+
             <div class="video-details">
                 <h2 id="video-title">Título del Video</h2>
                 <div class="video-meta-tags">
@@ -498,12 +602,15 @@
             </div>
 
             <div style="margin-bottom: 20px;">
-                <label style="display:block; margin-bottom:12px; font-weight: 500; color: var(--text-dim); font-size: 14px;">CALIDAD Y FORMATO</label>
+                <label
+                    style="display:block; margin-bottom:12px; font-weight: 500; color: var(--text-dim); font-size: 14px;">CALIDAD
+                    Y FORMATO</label>
                 <select id="quality-select"></select>
             </div>
 
             <!-- Contenedor Playlist -->
-            <div id="playlist-container" class="hidden" style="margin-top: 24px; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px;">
+            <div id="playlist-container" class="hidden"
+                style="margin-top: 24px; background: rgba(0,0,0,0.2); border-radius: 20px; padding: 20px;">
                 <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
                     <span style="font-weight: 600; font-size: 14px;">Videos de la Lista</span>
                     <div style="display:flex; gap: 8px;">
@@ -511,34 +618,43 @@
                         <button class="btn-sm btn-sm-dim" onclick="selectAll(false)">Ninguno</button>
                     </div>
                 </div>
-                <div id="playlist-items" style="max-height: 220px; overflow-y: auto; padding-right: 8px; display: flex; flex-direction: column; gap: 8px;">
+                <div id="playlist-items"
+                    style="max-height: 220px; overflow-y: auto; padding-right: 8px; display: flex; flex-direction: column; gap: 8px;">
                     <!-- Items dinámicos -->
                 </div>
             </div>
 
-            <button id="download-btn" class="btn-main" style="width: 100%; margin-top: 24px; font-size: 18px;" onclick="startDownloadSequence()">
+            <button id="download-btn" class="btn-main" style="width: 100%; margin-top: 24px; font-size: 18px;"
+                onclick="startDownloadSequence()">
                 Comenzar Descarga
             </button>
         </div>
 
-        <div id="progress-container" class="hidden" style="margin-top: 24px; padding: 24px; background: rgba(15, 23, 42, 0.4); border-radius: 24px; border: 1px solid rgba(255,255,255,0.05);">
+        <div id="progress-container" class="hidden"
+            style="margin-top: 24px; padding: 24px; background: rgba(15, 23, 42, 0.4); border-radius: 24px; border: 1px solid rgba(255,255,255,0.05);">
             <div style="margin-bottom: 20px;">
                 <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.2px;">Cola de Descargas</h3>
+                    <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -0.2px;">Cola
+                        de Descargas</h3>
                     <div id="global-actions" class="hidden">
-                        <button id="global-clear-btn" class="btn-sm btn-sm-dim" style="width: auto; padding: 0 12px; font-size: 11px;" onclick="clearFinished()">🧹 Limpiar Terminados</button>
+                        <button id="global-clear-btn" class="btn-sm btn-sm-dim"
+                            style="width: auto; padding: 0 12px; font-size: 11px;" onclick="clearFinished()">🧹 Limpiar
+                            Terminados</button>
                     </div>
                 </div>
                 <div style="height: 1px; background: rgba(255,255,255,0.08); width: 100%;"></div>
             </div>
-            
+
             <div id="queue-list" style="display: flex; flex-direction: column; gap: 0;">
                 <!-- Controles globales e ítems de cola -->
             </div>
         </div>
 
-        <div id="recent-container" style="margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 32px;" class="hidden">
-            <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 20px;">RECIENTES</div>
+        <div id="recent-container"
+            style="margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 32px;" class="hidden">
+            <div
+                style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 20px;">
+                RECIENTES</div>
             <div id="recent-list"></div>
         </div>
     </div>
@@ -556,7 +672,7 @@
             window.open(`/api/download_file/${id}/${safeName}`, '_blank');
         }
 
-        let pendingUrl = ""; 
+        let pendingUrl = "";
 
         async function handlePasteClick() {
             const input = document.getElementById('video-url');
@@ -630,9 +746,9 @@
             const btn = document.getElementById('paste-btn');
             const btnText = document.getElementById('paste-btn-text');
             const videoInfo = document.getElementById('video-info');
-            
+
             const originalText = btnText ? btnText.innerHTML : 'Analizar';
-            
+
             if (btnText) btnText.innerHTML = 'Analizando...';
             if (btn) {
                 btn.style.opacity = '0.7';
@@ -950,7 +1066,7 @@
                 const items = stateData.items;
                 let allFinished = true;
                 const progressContainer = document.getElementById('progress-container');
-                
+
                 if (Object.keys(items).length === 0) {
                     if (progressContainer) progressContainer.classList.add('hidden');
                     return;
@@ -1115,9 +1231,9 @@
                     const gPause = document.getElementById('global-pause-btn');
                     const gResume = document.getElementById('global-resume-btn');
                     const gCancel = document.getElementById('global-cancel-btn');
-                    if(gPause) gPause.classList.toggle('hidden', !canPauseAll);
-                    if(gResume) gResume.classList.toggle('hidden', !canResumeAll);
-                    if(gCancel) gCancel.classList.toggle('hidden', !canCancelAll);
+                    if (gPause) gPause.classList.toggle('hidden', !canPauseAll);
+                    if (gResume) gResume.classList.toggle('hidden', !canResumeAll);
+                    if (gCancel) gCancel.classList.toggle('hidden', !canCancelAll);
 
                 } else if (gbControls) {
                     gbControls.remove(); // ELIMINAR físicamente para que no ocupe espacio
