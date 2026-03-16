@@ -1,4 +1,4 @@
-# 📹 Video Downloader Premium
+# 📹 Video Downloader
 
 ![Status](https://img.shields.io/badge/Status-Beta-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue)
