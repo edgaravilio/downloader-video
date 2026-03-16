@@ -61,15 +61,6 @@ python web_app.py
 
 ---
 
-## ☁️ Despliegue en la Nube (Google Cloud Run)
-
-Este proyecto está 100% optimizado para la nube. Para subirlo a tu propia infraestructura:
-
-1.  **Sube el código**: `gcloud run deploy --source .`
-2.  **Configura Cookies (Opcional pero recomendado)**:
-    *   Para descargar contenido protegido (Instagram/YouTube bloqueado), exporta tus cookies en formato Netscape.
-    *   Agrégalas como una Variable de Entorno llamada `YOUTUBE_COOKIES`.
-
 ---
 
 ## 🖥️ Soporte Multiplataforma (Windows, Linux, MacOS)
