@@ -13,6 +13,7 @@ Perfecta si prefieres usar tus propias pestañas de Chrome, Edge o Firefox. El p
 - **Ubicación:** `1. Version WEB (Laptop & Server)/`
 - **Uso en Windows:** Ejecuta `VideoDownloader.exe`.
 - **Uso en Linux/Mac:** Entra en la carpeta respectiva y usa el script `run_mac.sh` o `run_linux.sh`.
+> **Nota**: Si despliegas esta versión en la nube (ej. Google Cloud), YouTube podría estar bloqueado. Se recomienda la Versión Escritorio para YouTube.
 
 ### 💻 2. Versión ESCRITORIO (App Nativa)
 Una aplicación independiente con su propia ventana profesional. Proporciona una experiencia más integrada y rápida sin depender del navegador.
