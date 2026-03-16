@@ -1,25 +1,32 @@
-# Video Downloader - Versión Portable
+# 🌐 Video Downloader - Versión Portable
 
-Este paquete contiene todo lo necesario para ejecutar el descargador de videos localmente en diferentes sistemas operativos.
-
-## 🪟 Windows (Recomendado)
-Para Windows, se ha creado un ejecutable único que incluye todas las dependencias y FFmpeg.
-1. Entra en la carpeta `Windows`.
-2. Ejecuta `VideoDownloader.exe`.
-3. Abre tu navegador en `http://localhost:8081`.
-
-## 🐧 Linux
-El script automatiza la configuración.
-1. Abre una terminal en la carpeta `Linux`.
-2. Dale permisos: `chmod +x run_linux.sh`.
-3. Ejecuta: `./run_linux.sh`.
-4. El script descargará FFmpeg portable y configurará Python automáticamente.
-
-## 🍎 MacOS
-1. Abre una terminal en la carpeta `MacOS`.
-2. Dale permisos: `chmod +x run_mac.sh`.
-3. Ejecuta: `./run_mac.sh`.
-*Nota: Asegúrate de tener Python 3 instalado.*
+Esta versión está diseñada para ejecutarse como un servidor local, permitiéndote utilizar la interfaz **Glassmorphism** directamente en tu navegador preferido. Es ligera, rápida y no requiere instalación de sistema.
 
 ---
-**Desarrollado con ❤️ para una mejor experiencia de descarga.**
+
+## 🚀 Cómo empezar
+
+### 🪟 Windows (Ejecutable Directo)
+1. Entra en la carpeta `Windows`.
+2. Ejecuta `VideoDownloader.exe`.
+3. Automáticamente se abrirá tu navegador predeterminado. Si no, accede a: `http://localhost:8080`
+
+### 🐧 Linux (Script de Automización)
+1. Abre una terminal en la carpeta `Linux`.
+2. Otorga permisos de ejecución: `chmod +x run_linux.sh`
+3. Ejecuta el script: `./run_linux.sh`
+4. El sistema configurará el entorno y abrirá el navegador.
+
+### 🍎 MacOS (Apple Silicon & Intel)
+1. Abre una terminal en la carpeta `MacOS`.
+2. Otorga permisos de ejecución: `chmod +x run_mac.sh`
+3. Ejecuta el script: `./run_mac.sh`
+4. Se iniciará el servidor y podrás usarlo en Safari o Chrome.
+
+---
+
+## 📂 Almacenamiento
+Todos los archivos descargados se guardarán ordenadamente en la carpeta `downloads/` que se creará en el mismo directorio donde ejecutes el programa.
+
+---
+*Optimizado para una experiencia fluida y moderna.*

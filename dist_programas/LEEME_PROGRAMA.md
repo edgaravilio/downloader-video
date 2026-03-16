@@ -1,17 +1,28 @@
-# Video Downloader - Versión Programa de Escritorio (GUI)
+# 💻 Video Downloader - Versión Escritorio
 
-Esta es la versión de escritorio con interfaz gráfica nativa (no web).
-
-## 🪟 Windows
-1. Entra en `Windows\VideoDownloader`.
-2. Ejecuta `VideoDownloader_GUI.exe`.
-3. Se abrirá una ventana de Windows profesional lista para descargar.
-
-## 🐧 Linux / 🍎 MacOS
-1. Abre una terminal en la carpeta respectiva.
-2. Dale permisos: `chmod +x run_app_*.sh`.
-3. Ejecuta el script de inicio (`./run_app_linux.sh` o `./run_app_mac.sh`).
-*Nota: Requiere Python 3 instalado en el sistema.*
+Esta es la versión nativa del software. A diferencia de la versión web, esta cuenta con su propia ventana profesional e independiente, ofreciendo una experiencia más integrada al sistema operativo.
 
 ---
-**Diseñado para ser rápido, ligero y sin necesidad de navegador.**
+
+## 🚀 Instrucciones de Inicio
+
+### 🪟 Windows (App Profesional)
+1. Navega hasta la carpeta `Windows`.
+2. Ejecuta el archivo `VideoDownloader_Desktop.exe`.
+3. Disfruta de la interfaz **Glassmorphism** en una ventana única.
+
+### 🐧 Linux & 🍎 MacOS (Scripts de Sistema)
+1. Entra en la carpeta `Linux` o `MacOS` según corresponda.
+2. Abre una terminal y otorga permisos: `chmod +x run_app_*.sh`
+3. Ejecuta el archivo: `./run_app_linux.sh` (o `_mac.sh`).
+4. El programa instalará automáticamente cualquier dependencia mínima faltante la primera vez.
+
+---
+
+## ✨ Características Nativas
+*   No requiere abrir pestañas adicionales en el navegador.
+*   Gestión de memoria optimizada.
+*   Ventana redimensionable con soporte para Dark Mode automático del sistema.
+
+---
+*Diseñado con arquitectura profesional para una experiencia superior.*

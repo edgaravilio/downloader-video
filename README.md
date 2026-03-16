@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/badge/License-MIT-orange)
 ![UI](https://img.shields.io/badge/UI-Glassmorphism-purple)
 
-Una solución integral y multiplataforma diseñada para la mejor experiencia de descarga de contenido multimedia. Soporta YouTube, Instagram, Facebook y más de 1000 sitios a través de una interfaz de escritorio nativa o una aplicación web sofisticada.
+Una solución integral y multiplataforma diseñada para una experiencia buena de descarga de contenido multimedia. Soporta YouTube, Instagram, Facebook y más de 1000 sitios a través de una interfaz de escritorio nativa o una aplicación web sofisticada.
 
 ---
 

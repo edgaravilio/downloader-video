@@ -1,27 +1,38 @@
-# 📺 Video Downloader - Release Final
+# 📹 Video Downloader - Release Final
 
-¡Bienvenido! Este es el paquete oficial de Video Downloader. Ambas versiones incluyen ahora el diseño Glassmorphism avanzado y todas las funcionalidades.
+¡Bienvenido! Este es el paquete oficial de **Video Downloader**. Todas las versiones incluidas cuentan con el motor de descarga más avanzado y la nueva interfaz **Glassmorphism** de alta calidad.
 
 ---
 
-## 📁 Estructura del Paquete
+## 📁 Estructura del Proyecto
 
-### 🌐 1. Version WEB (Laptop & Server)
-Esta versión se ejecuta en segundo plano y se controla desde tu navegador habitual. Es ideal para dejarla corriendo en un servidor o si prefieres usar tus propias pestañas del navegador.
+El software se presenta en dos formatos principales para adaptarse a tus necesidades:
+
+### 🌐 1. Versión WEB (Ideal para Navegador)
+Perfecta si prefieres usar tus propias pestañas de Chrome, Edge o Firefox. El programa corre en segundo plano y te brinda una URL local para gestionar tus descargas.
 - **Ubicación:** `1. Version WEB (Laptop & Server)/`
-- **Windows:** Ejecuta `VideoDownloader.exe`.
+- **Uso en Windows:** Ejecuta `VideoDownloader.exe`.
+- **Uso en Linux/Mac:** Entra en la carpeta respectiva y usa el script `run_mac.sh` o `run_linux.sh`.
 
-### 💻 2. Version ESCRITORIO (App Nativa)
-Esta versión es una aplicación de escritorio completa que renderiza la interfaz Glassmorphism nativamente en su propia ventana profesional. **Tiene exactamente el mismo diseño y funciones que la web.**
+### 💻 2. Versión ESCRITORIO (App Nativa)
+Una aplicación independiente con su propia ventana profesional. Proporciona una experiencia más integrada y rápida sin depender del navegador.
 - **Ubicación:** `2. Version ESCRITORIO (App Nativa)/`
-- **Windows:** Ejecuta `VideoDownloader_Desktop.exe`.
-- **Linux/Mac:** Usa los scripts de inicio `run_app_*.sh`.
+- **Uso en Windows:** Ejecuta `VideoDownloader_Desktop.exe`.
+- **Uso en Linux/Mac:** Entra en la carpeta respectiva y usa el script `run_app_mac.sh` o `run_app_linux.sh`.
 
 ---
 
-## 🚀 Guía Rápida (Windows)
-1. Si quieres usar Chrome/Edge/Firefox: **RELEASE/1. Version WEB/.../VideoDownloader.exe**
-2. Si quieres una Ventana de App Profesional: **RELEASE/2. Version ESCRITORIO/.../VideoDownloader_Desktop.exe**
+## 🚀 Guía de Inicio Rápido (Windows)
+
+1.  **¿Prefieres usar tu navegador?** ve a `1. Version WEB` y abre `VideoDownloader.exe`. Se abrirá automáticamente una pestaña en tu navegador.
+2.  **¿Prefieres una aplicación independiente?** ve a `2. Version ESCRITORIO` y abre `VideoDownloader_Desktop.exe`.
 
 ---
-*Desarrollado con Arquitectura de Vanguardia y Diseño de Alta Calidad.*
+
+## 🛠️ Notas de Rendimiento
+*   **Velocidad**: Se recomienda una conexión estable. El programa soporta descargas concurrentes.
+*   **Calidad**: Selecciona siempre la resolución deseada después de analizar el video.
+*   **Privacidad**: Tus descargas se guardan localmente en la carpeta `downloads/`.
+
+---
+*Diseñado para una experiencia buena y eficiente.*
