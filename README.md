@@ -77,7 +77,7 @@ Para sistemas basados en Unix, el proyecto proporciona scripts de ejecución aut
 
 ### 🪟 Windows
 Para Windows, se proporcionan binarios ejecutables `.exe` que no requieren instalación previa.
-*   **Descarga**: Debido a que los ejecutables superan el límite de tamaño de archivos de Git (100MB), estos se encuentran alojados en la sección de **[Releases](https://github.com/edgaravilio/downloader-video/release)** de este repositorio.
+*   **Descarga**: Debido a que los ejecutables superan el límite de tamaño de archivos de Git (100MB), estos se encuentran alojados en la sección de **[Releases](https://github.com/edgaravilio/downloader-video/tree/main/RELEASE/1.%20Version%20WEB%20(Laptop%20%26%20Server)/Windows)** de este repositorio.
 *   **Versiones disponibles**:
     1.  **Portable (Web)**: Ideal para uso rápido en el navegador.
     2.  **Nativo (Desktop)**: Aplicación con ventana propia profesional.
